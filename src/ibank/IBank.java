@@ -67,12 +67,22 @@ public class IBank {
 		}
 		
 	}
-	public ArrayList<IBankAccount> getAccounts(IBankCustomer customer) {
+	public ArrayList<IBankAccount> getAccounts(String customer) {
+		String str = customer.toLowerCase();
 		for (IBankCustomer cust : this.customers) {
-			if (cust.getCustomerNumber().equalsIgnoreCase(
-					customer.getCustomerNumber()))
+			if (cust.getCustomerNumber().toLowerCase().contains(str))
 				return cust.getAccounts();
 		}
+		return null;
+	}
+	
+	public IBankCustomer getCustomer(String str) {
+		String str2 = str.toLowerCase();
+		for (IBankCustomer customer : this.getCustomers()) {	
+			if (customer.getCustomerNumber().toLowerCase().contains(str2))
+				return customer;
+			
+		} 
 		return null;
 	}
 	

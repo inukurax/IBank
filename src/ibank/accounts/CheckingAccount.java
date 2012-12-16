@@ -37,6 +37,7 @@ public class CheckingAccount implements IBankAccount {
 	@Override
 	public void deposit(final double amount) {
 		balance = balance + amount;
+		transaction++;
 	}
 
 	/**
@@ -45,8 +46,10 @@ public class CheckingAccount implements IBankAccount {
 	 */
 	@Override
 	public void withdraw(final double amount) {
-		if (balance > amount)
+		if (balance > amount) {
 			balance = balance - amount;
+			transaction++;
+		}
 	}
 	/**
 	 * Accessor method for getting balance
@@ -62,6 +65,14 @@ public class CheckingAccount implements IBankAccount {
 	@Override
 	public String type() {
 		return "Checking account:";
+	}
+	
+	/**
+	 * Accessor method for getting all info on account
+	 */
+	@Override
+	public String info() {
+		return String.format(type() + " Balance = %.2f", getBalance());
 	}
 
 

@@ -47,13 +47,17 @@ public class IBankCustomer {
 	}
 	
 	public void printAccounts() {
-		System.out.println(number);
-		for  (IBankAccount acc : account) {
-			System.out.println(acc.type() + " " + Double.toString(acc.getBalance()));
-			
-		}
-	}
-	
-	
 
+		System.out.println(this.getCustomerNumber());
+		if (account.isEmpty())
+			System.out.println("No accounts");
+		else {
+			System.out.println("You have: " + numbersOfAccount() + " accounts");
+	
+			for  (IBankAccount acc : account) {
+				System.out.println(acc.info());
+			}
+		}
+
+	}
 }

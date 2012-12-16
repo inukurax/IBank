@@ -9,7 +9,7 @@ public class SavingsAccount implements IBankAccount {
 	
 	private double balance;
 	private double rate;
-	private final double DEFAULT_RATE = 1.02;
+	private final double DEFAULT_RATE = 2;
 	
 	/**
 	 * Creates new SavingsAccount with balance = 0
@@ -32,8 +32,9 @@ public class SavingsAccount implements IBankAccount {
 	}
 	
 	void addInterest() {
+		double interest = (balance * rate) / 100;
 		if (balance > 0)
-		balance = balance + (balance * rate);
+		balance = balance + (balance + interest);
 	}
 	
 	/**
@@ -72,7 +73,16 @@ public class SavingsAccount implements IBankAccount {
 	 */
 	@Override
 	public String type() {
-		return "SavingsAccount:";
+		return "Savings account:";
+	}
+	
+	/**
+	 * Accessor method for getting all info on an account
+	 */
+	@Override
+	public String info() {
+		return String.format(type() + " Balance = %.2f , Rate = %.1f%%", getBalance() ,getRate());
+		
 	}
 
 }

@@ -9,5 +9,7 @@ public interface IBankAccount {
 	public double getBalance();
 	
 	public String type();
+	
+	public String info();
 
 }

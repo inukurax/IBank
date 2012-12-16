@@ -14,30 +14,32 @@ public class Test {
 		IBank bank = new IBank();
 
 		String cusN1 = bank.randomCustNumber();
+		String cusN2 = "12345678";
 		IBankCustomer newCustomer = new IBankCustomer(cusN1);
+		IBankCustomer newCustomer2 = new IBankCustomer(cusN2);
+
 		bank.addCustomer(newCustomer);
-		System.out.println("Is " + cusN1 + " not in use? " 
-				+ bank.isNotUsed(newCustomer));
+		bank.addCustomer(newCustomer2);
+
 		IBankAccount newAccount = new CheckingAccount(200);
-		bank.getCustomers().get(0).addAccount(newAccount);
-		IBankAccount oldAccount = bank.getAccounts(newCustomer).get(0);
+		bank.getCustomer(cusN1).addAccount(newAccount);
+		IBankAccount oldAccount = bank.getAccounts(cusN1).get(0);
 		oldAccount.deposit(1000);
-		System.out.println("Balance on " + newCustomer.getCustomerNumber() +": " 
-				+ oldAccount.getBalance());
-		System.out.println("Number of account: " + newCustomer.numbersOfAccount());
-		
+
 		IBankAccount newAccount2 = new CheckingAccount(0);
 		bank.getCustomers().get(0).addAccount(newAccount2);
-		IBankAccount oldAccount2 = bank.getAccounts(newCustomer).get(1);
+		IBankAccount oldAccount2 = bank.getAccounts(cusN1).get(1);
 		oldAccount2.deposit(1000);
-		System.out.println("Balance on " + newCustomer.getCustomerNumber() +": " 
-				+ oldAccount2.getBalance());
-		System.out.println("Number of account: " + newCustomer.numbersOfAccount());
 		
-		IBankAccount newAccount3 = new SavingsAccount(10000, 0.5);
+		
+		IBankAccount newAccount3 = new SavingsAccount(10000, 2);
 		bank.getCustomers().get(0).addAccount(newAccount3);
+		bank.getCustomer(cusN1).addAccount(newAccount3);
+		int acc = bank.getCustomer(cusN1).numbersOfAccount();
 
-		bank.getCustomers().get(0).printAccounts();		
+		bank.getCustomer(cusN1).printAccounts();
+		bank.getCustomer(cusN2).printAccounts();		
+
 	
 	}
 }
