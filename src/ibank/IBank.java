@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class IBank {
 	
-	ArrayList<IBankCustomer> customers;
+	private ArrayList<IBankCustomer> customers;
 	
 	public IBank() {
 		customers = new ArrayList<IBankCustomer>();
@@ -74,6 +74,10 @@ public class IBank {
 				return cust.getAccounts();
 		}
 		return null;
+	}
+	
+	public ArrayList<IBankCustomer> getCustomers() {
+		return customers;
 	}
 
 }
