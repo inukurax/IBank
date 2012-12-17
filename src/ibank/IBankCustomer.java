@@ -19,7 +19,18 @@ public class IBankCustomer {
 		this.account = new ArrayList<IBankAccount>();
 	}
 	
+	/**
+	 * Adds a IBankAccount to IBankCustomer 
+	 * with unique account name.
+	 * @param acc non null IBankAccount
+	 */
 	public void addAccount(IBankAccount acc) {
+		for (IBankAccount act : account) {
+			if (act.getName().equals(acc.getName())) {
+				System.out.println("Account name is already in use!");
+				return;
+			}
+		}
 		account.add(acc);
 	}
 	

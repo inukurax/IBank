@@ -28,27 +28,45 @@ public class GUI extends JFrame {
 	private JButton getBalanceB;
 	private BalanceButtonHandler getBalHandler;
 	private JLabel accountL;
-	private JTextField accountTF;
+	private JTextField customerTF;
 	private CostumerTextHandler customerTextHandler;
+	private JButton depositeB;
+	private JTextField amountTF;
+	private JButton withdrawB;
+	private JLabel amountL;
 	public static JComboBox accountsC;
     
     
 	public static String title;
-    public static String first;
 
 
 	public GUI() {
 
 		
 	       accountL = new JLabel("Account #: ", SwingConstants.LEFT);
+	       amountL = new JLabel("Enter amount: ", SwingConstants.LEFT);
+
+
+	       	//
+	        customerTF = new JTextField(5);
+	        customerTextHandler = new CostumerTextHandler();
+	        customerTF.addActionListener(customerTextHandler);
+	        
+	        amountTF = new JTextField(5);
+
+	        
+	        accountsC = new JComboBox();
+
+	        // Buttons
 	        getBalanceB = new JButton("Get Balance");
 	        getBalHandler = new BalanceButtonHandler();
 	        getBalanceB.addActionListener(getBalHandler);
-	        accountsC = new JComboBox();
-	        accountTF = new JTextField(5);
-	        customerTextHandler = new CostumerTextHandler();
-	        accountTF.addActionListener(customerTextHandler);
-	        accountsC.addActionListener(customerTextHandler);
+	        
+	        depositeB = new JButton("Deposite");
+	       // depositeHandler = new DepositeButtonHandler();
+	       // depositeB.addActionListener(depositeHandler);
+	        withdrawB = new JButton("Withdraw");
+
 	        
 
 	               
@@ -58,12 +76,18 @@ public class GUI extends JFrame {
 	    		//Add things to the pane in the order you want them to appear (left to right, top to bottom)
 	    		pane.add(accountL);
 	    		
-	    		pane.add(accountTF);
+	    		pane.add(customerTF);
 	    		pane.add(accountsC);
-
+	    		accountsC.setEnabled(false);
 	    		pane.add(getBalanceB);
+	    		getBalanceB.setEnabled(false);
 	    		
-	       		setTitle("IBank");
+	    		pane.add(amountL);
+	    		pane.add(amountTF);
+	    		pane.add(depositeB);
+	    		pane.add(withdrawB);
+	    		
+	    		setTitle("IBank");
 	    		setSize(WIDTH, HEIGHT);
 	    		setVisible(true);
 	    		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -81,16 +105,25 @@ public class GUI extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+    		if (accountsC.getItemCount() > 0) {
+    			getBalanceB.setEnabled(true);
+    			accountsC.setEnabled(true);
+    		}
+    		else {
+    			getBalanceB.setEnabled(false);
+    			accountsC.setEnabled(false);
+    		}
+
 				
-        ArrayList<IBankAccount> accounts = Test.bank.getAccounts(accountTF.getText());
+        ArrayList<IBankAccount> accounts = Test.bank.getAccounts(customerTF.getText());
 		if (accounts != null && accounts.size() > 0 &&
 				accountsC.getItemCount() == 0) {
 			for (IBankAccount acc : accounts) {
 				accountsC.addItem(acc.getType() + acc.getName());
 			}
 		}
-		else
-			accountsC.removeAll();
+		if (accounts == null)
+			accountsC.removeAllItems();
 				
 			
 		
@@ -107,26 +140,26 @@ public class GUI extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if (accountTF.getText().isEmpty())
+			if (customerTF.getText().isEmpty())
 				return;
 			// TODO Auto-generated method stub
-		if (Test.bank.getAccounts(accountTF.getText()) != null) {
-        ArrayList<IBankAccount> accounts = Test.bank.getAccounts(accountTF.getText());
+		if (Test.bank.getAccounts(customerTF.getText()) != null) {
+        ArrayList<IBankAccount> accounts = Test.bank.getAccounts(customerTF.getText());
 		if (accounts != null &&
 				accounts.size() > 0) {
 			
 			int accNumb = accountsC.getSelectedIndex();
 			double value = Test.bank.getAccounts(
-					accountTF.getText()).get(accNumb).getBalance();
+					customerTF.getText()).get(accNumb).getBalance();
 			
 				System.out.println(value);
 		}
 		else if (accounts.size() > 0)
 			System.out.println("No customer found with this " 
-					+ accountTF.getText()+ " customer #");
+					+ customerTF.getText()+ " customer #");
 		else 
 			System.out.println("Customer " 
-					+ accountTF.getText()+ "# has no accounts");
+					+ customerTF.getText()+ "# has no accounts");
 			
 		}
 		}
