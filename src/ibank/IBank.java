@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class IBank {
-	
-	private ArrayList<IBankCustomer> customers;
+	public ArrayList<IBankCustomer> customers;
 	
 	public IBank() {
 		customers = new ArrayList<IBankCustomer>();
