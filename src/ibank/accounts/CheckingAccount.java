@@ -4,17 +4,20 @@ public class CheckingAccount implements IBankAccount {
 	
 	private double balance;
 	private int transaction = 0;
+	private String name;
 	/**
 	 * Creates a new CheckingAccount with a balance = 0
 	 */
-	public CheckingAccount () {
+	public CheckingAccount (final String name) {
+		this.name = name;
 		this.balance = 0;
 	}
 	/**
 	 * Creates a new CheckingAccount with a start balance
 	 * @param double > 0
 	 */
-	public CheckingAccount (final double initialBalance) {
+	public CheckingAccount (final String name, final double initialBalance) {
+		this.name = name;
 		if (initialBalance > 0)
 			this.balance = initialBalance;
 		else
@@ -63,8 +66,13 @@ public class CheckingAccount implements IBankAccount {
 	 * Accessor method for getting type of account
 	 */
 	@Override
-	public String type() {
+	public String getType() {
 		return "Checking account:";
+	}
+	
+	@Override
+	public String getName() {
+		return this.name;
 	}
 	
 	/**
@@ -72,7 +80,7 @@ public class CheckingAccount implements IBankAccount {
 	 */
 	@Override
 	public String info() {
-		return String.format(type() + " Balance = %.2f", getBalance());
+		return String.format(getType() + " Balance = %.2f", getBalance());
 	}
 
 

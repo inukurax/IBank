@@ -8,7 +8,9 @@ public interface IBankAccount {
 	
 	public double getBalance();
 	
-	public String type();
+	public String getType();
+	
+	public String getName();
 	
 	public String info();
 

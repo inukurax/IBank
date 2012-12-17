@@ -27,18 +27,18 @@ public class Test{
 		bank.addCustomer(newCustomer);
 		bank.addCustomer(newCustomer2);
 
-		IBankAccount newAccount = new CheckingAccount(200);
+		IBankAccount newAccount = new CheckingAccount("Knud",200);
 		bank.getCustomer(cusN1).addAccount(newAccount);
 		IBankAccount oldAccount = bank.getAccounts(cusN1).get(0);
 		oldAccount.deposit(1000);
 
-		IBankAccount newAccount2 = new CheckingAccount(0);
+		IBankAccount newAccount2 = new CheckingAccount("Lån");
 		bank.getCustomers().get(0).addAccount(newAccount2);
 		IBankAccount oldAccount2 = bank.getAccounts(cusN1).get(1);
 		oldAccount2.deposit(1000);
 		
 		
-		IBankAccount newAccount3 = new SavingsAccount(10000, 2);
+		IBankAccount newAccount3 = new SavingsAccount("Opsparing1",10000, 2);
 		bank.getCustomers().get(0).addAccount(newAccount3);
 		bank.getCustomer(cusN1).addAccount(newAccount3);
 		int acc = bank.getCustomer(cusN1).numbersOfAccount();

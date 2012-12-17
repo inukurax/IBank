@@ -7,6 +7,7 @@ package ibank.gui;
 import ibank.*;
 import ibank.accounts.IBankAccount;
 import ibank.gui.GUI.BalanceButtonHandler;
+import ibank.gui.GUI.CostumerTextHandler;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class GUI extends JFrame {
 	private BalanceButtonHandler getBalHandler;
 	private JLabel accountL;
 	private JTextField accountTF;
+	private CostumerTextHandler customerTextHandler;
 	public static JComboBox accountsC;
     
     
@@ -44,6 +46,9 @@ public class GUI extends JFrame {
 	        getBalanceB.addActionListener(getBalHandler);
 	        accountsC = new JComboBox();
 	        accountTF = new JTextField(5);
+	        customerTextHandler = new CostumerTextHandler();
+	        accountTF.addActionListener(customerTextHandler);
+	        accountsC.addActionListener(customerTextHandler);
 	        
 
 	               
@@ -52,10 +57,11 @@ public class GUI extends JFrame {
 	    		
 	    		//Add things to the pane in the order you want them to appear (left to right, top to bottom)
 	    		pane.add(accountL);
+	    		
 	    		pane.add(accountTF);
-	    		pane.add(getBalanceB);
 	    		pane.add(accountsC);
 
+	    		pane.add(getBalanceB);
 	    		
 	       		setTitle("IBank");
 	    		setSize(WIDTH, HEIGHT);
@@ -63,8 +69,36 @@ public class GUI extends JFrame {
 	    		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
+			
+				}
+
+
   
+	class CostumerTextHandler implements ActionListener {
+
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+				
+        ArrayList<IBankAccount> accounts = Test.bank.getAccounts(accountTF.getText());
+		if (accounts != null && accounts.size() > 0 &&
+				accountsC.getItemCount() == 0) {
+			for (IBankAccount acc : accounts) {
+				accountsC.addItem(acc.getType() + acc.getName());
+			}
+		}
+		else
+			accountsC.removeAll();
+				
+			
+		
+		}
 	}
+		
+	
+
 	
 	class BalanceButtonHandler implements ActionListener {
 
@@ -76,12 +110,14 @@ public class GUI extends JFrame {
 			if (accountTF.getText().isEmpty())
 				return;
 			// TODO Auto-generated method stub
+		if (Test.bank.getAccounts(accountTF.getText()) != null) {
         ArrayList<IBankAccount> accounts = Test.bank.getAccounts(accountTF.getText());
 		if (accounts != null &&
 				accounts.size() > 0) {
 			
+			int accNumb = accountsC.getSelectedIndex();
 			double value = Test.bank.getAccounts(
-					accountTF.getText()).get(0).getBalance();
+					accountTF.getText()).get(accNumb).getBalance();
 			
 				System.out.println(value);
 		}
@@ -92,6 +128,7 @@ public class GUI extends JFrame {
 			System.out.println("Customer " 
 					+ accountTF.getText()+ "# has no accounts");
 			
+		}
 		}
 		
 	}
