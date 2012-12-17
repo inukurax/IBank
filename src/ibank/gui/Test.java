@@ -1,17 +1,23 @@
+package ibank.gui;
 
+
+import javax.swing.JComboBox;
 
 import ibank.*;
 import ibank.accounts.*;
 
 
-public class Test {
+public class Test{
 
 	/**
 	 * @param args
 	 */
+	static IBank bank;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		IBank bank = new IBank();
+		GUI.title = "test";
+		GUI newGui = new GUI();
+		bank = new IBank();
 
 		String cusN1 = bank.randomCustNumber();
 		String cusN2 = "12345678";

@@ -70,7 +70,8 @@ public class IBank {
 	public ArrayList<IBankAccount> getAccounts(String customer) {
 		String str = customer.toLowerCase();
 		for (IBankCustomer cust : this.customers) {
-			if (cust.getCustomerNumber().toLowerCase().contains(str))
+			if (cust.getCustomerNumber().toLowerCase().contains(str)
+					&& str.length() >= 8)
 				return cust.getAccounts();
 		}
 		return null;
@@ -79,7 +80,8 @@ public class IBank {
 	public IBankCustomer getCustomer(String str) {
 		String str2 = str.toLowerCase();
 		for (IBankCustomer customer : this.getCustomers()) {	
-			if (customer.getCustomerNumber().toLowerCase().contains(str2))
+			if (customer.getCustomerNumber().toLowerCase().contains(str2)
+					&& str2.length() >= 8)
 				return customer;
 			
 		} 
