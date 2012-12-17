@@ -9,7 +9,7 @@ import javax.swing.JFrame;
  * @author Hjalte S. Jorgensen
  * @version 1.00
  */
-public class GUI extends JFrame {
+public abstract class GUI extends JFrame {
     
 	private static final int WIDTH = 400;
 	private static final int HEIGHT = 300;

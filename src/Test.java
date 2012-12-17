@@ -2,10 +2,10 @@
 
 import ibank.*;
 import ibank.accounts.*;
+import ibank.gui.GUI;
 
 
-public class Test {
-
+public class Test extends GUI {
 	/**
 	 * @param args
 	 */
